@@ -18,11 +18,10 @@ import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.layout.Alignment
-import androidx.glance.layout.Column
 import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
+import androidx.glance.layout.defaultWeight
 import androidx.glance.layout.fillMaxSize
-import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.layout.size
 import androidx.glance.layout.width
@@ -53,77 +52,59 @@ class BirthdayWidget : GlanceAppWidget() {
 
     @Composable
     private fun WidgetContent(next: UpcomingBirthday?) {
-        Column(
+        Row(
             modifier = GlanceModifier
                 .fillMaxSize()
                 .background(GlanceTheme.colors.primaryContainer)
                 .cornerRadius(16.dp)
-                .padding(16.dp)
+                .padding(horizontal = 12.dp, vertical = 6.dp)
                 .clickable(
                     actionStartActivity(
                         Intent(LocalContext.current, MainActivity::class.java)
                     )
                 ),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalAlignment = Alignment.Start,
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    provider = ImageProvider(R.drawable.ic_cake),
-                    contentDescription = null,
-                    modifier = GlanceModifier.size(20.dp),
-                )
-                Spacer(GlanceModifier.width(8.dp))
-                Text(
-                    text = "Próximo aniversário",
-                    style = TextStyle(
-                        color = GlanceTheme.colors.onPrimaryContainer,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium,
-                    ),
-                )
-            }
-
-            Spacer(GlanceModifier.height(8.dp))
+            Image(
+                provider = ImageProvider(R.drawable.ic_cake),
+                contentDescription = null,
+                modifier = GlanceModifier.size(18.dp),
+            )
+            Spacer(GlanceModifier.width(8.dp))
 
             if (next == null) {
                 Text(
-                    text = "Sem aniversários.\nToque para adicionar.",
+                    text = "Sem aniversários",
+                    maxLines = 1,
                     style = TextStyle(
                         color = GlanceTheme.colors.onPrimaryContainer,
-                        fontSize = 15.sp,
+                        fontSize = 14.sp,
                     ),
                 )
             } else {
                 Text(
-                    text = next.birthday.name,
+                    text = next.birthday.name + " · " + formatDate(next.nextDate),
                     maxLines = 1,
+                    modifier = GlanceModifier.defaultWeight(),
                     style = TextStyle(
                         color = GlanceTheme.colors.onPrimaryContainer,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
                     ),
                 )
-                Spacer(GlanceModifier.height(2.dp))
-                Text(
-                    text = formatDate(next.nextDate) + (next.turningAge?.let { " · faz $it" } ?: ""),
-                    style = TextStyle(
-                        color = GlanceTheme.colors.onPrimaryContainer,
-                        fontSize = 13.sp,
-                    ),
-                )
-                Spacer(GlanceModifier.height(8.dp))
+                Spacer(GlanceModifier.width(8.dp))
                 Text(
                     text = countdownLabel(next.daysUntil),
+                    maxLines = 1,
                     style = TextStyle(
                         color = GlanceTheme.colors.onPrimary,
-                        fontSize = 13.sp,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                     ),
                     modifier = GlanceModifier
                         .background(GlanceTheme.colors.primary)
-                        .cornerRadius(12.dp)
-                        .padding(horizontal = 12.dp, vertical = 6.dp),
+                        .cornerRadius(10.dp)
+                        .padding(horizontal = 10.dp, vertical = 4.dp),
                 )
             }
         }
