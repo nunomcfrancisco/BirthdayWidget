@@ -82,7 +82,7 @@ class BirthdayWidget : GlanceAppWidget() {
                 )
             } else {
                 Text(
-                    text = next.birthday.name + " · " + formatDate(next.nextDate),
+                    text = next.birthday.name + " · " + formatDateShort(next.nextDate),
                     maxLines = 1,
                     modifier = GlanceModifier.defaultWeight(),
                     style = TextStyle(
@@ -112,8 +112,11 @@ class BirthdayWidget : GlanceAppWidget() {
     companion object {
         private val ptLocale = Locale("pt", "PT")
         private val dateFormatter = DateTimeFormatter.ofPattern("d 'de' MMMM", ptLocale)
+        private val shortDateFormatter = DateTimeFormatter.ofPattern("dd/MM", ptLocale)
 
         fun formatDate(date: LocalDate): String = date.format(dateFormatter)
+
+        fun formatDateShort(date: LocalDate): String = date.format(shortDateFormatter)
 
         fun countdownLabel(days: Long): String = when (days) {
             0L -> "É hoje! 🎉"
