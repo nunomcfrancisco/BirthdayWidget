@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
-import androidx.glance.appwidget.updateAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,9 +21,10 @@ class BirthdayWidgetReceiver : GlanceAppWidgetReceiver() {
             Intent.ACTION_TIMEZONE_CHANGED,
             Intent.ACTION_BOOT_COMPLETED -> {
                 val pending = goAsync()
+                val appContext = context.applicationContext
                 CoroutineScope(Dispatchers.Default).launch {
                     try {
-                        BirthdayWidget().updateAll(context)
+                        BirthdayWidget.refreshAll(appContext)
                     } finally {
                         pending.finish()
                     }

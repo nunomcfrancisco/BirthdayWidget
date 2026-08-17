@@ -1,15 +1,14 @@
 package com.nunofrancisco.birthdaywidget.widget
 
 import android.content.Context
-import androidx.glance.appwidget.updateAll
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 /**
- * Utilitário para forçar a atualização de todas as instâncias do widget — usado
- * sempre que a lista de aniversários muda na app.
+ * Utilitário para atualizar todas as instâncias do widget — usado sempre que a
+ * lista de aniversários muda na app.
  *
  * As atualizações correm num scope próprio (não ligado ao ciclo de vida do
  * ViewModel ou da Activity), para garantir que terminam mesmo que o ecrã seja
@@ -21,14 +20,14 @@ object WidgetUpdater {
 
     /** Versão suspensa, para quem já está dentro de uma coroutine (ex.: o receiver). */
     suspend fun updateAll(context: Context) {
-        BirthdayWidget().updateAll(context.applicationContext)
+        BirthdayWidget.refreshAll(context.applicationContext)
     }
 
     /** Dispara a atualização de forma independente e à prova de cancelamento. */
     fun requestUpdate(context: Context) {
         val appContext = context.applicationContext
         scope.launch {
-            runCatching { BirthdayWidget().updateAll(appContext) }
+            runCatching { BirthdayWidget.refreshAll(appContext) }
         }
     }
 }
