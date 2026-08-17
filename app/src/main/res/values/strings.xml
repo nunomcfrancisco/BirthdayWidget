@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aniversários</string>
+    <string name="widget_label">Próximo Aniversário</string>
+    <string name="widget_description">Mostra o próximo aniversário e os dias em falta.</string>
+</resources>
