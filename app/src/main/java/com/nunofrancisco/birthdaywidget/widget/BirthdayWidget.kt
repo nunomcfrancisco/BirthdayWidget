@@ -1,12 +1,14 @@
 package com.nunofrancisco.birthdaywidget.widget
 
 import android.content.Context
+import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
+import androidx.glance.LocalContext
 import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.action.clickable
@@ -57,7 +59,11 @@ class BirthdayWidget : GlanceAppWidget() {
                 .background(GlanceTheme.colors.primaryContainer)
                 .cornerRadius(16.dp)
                 .padding(16.dp)
-                .clickable(actionStartActivity<MainActivity>()),
+                .clickable(
+                    actionStartActivity(
+                        Intent(LocalContext.current, MainActivity::class.java)
+                    )
+                ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalAlignment = Alignment.Start,
         ) {
