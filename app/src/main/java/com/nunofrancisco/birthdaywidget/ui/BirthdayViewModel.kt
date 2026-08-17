@@ -31,14 +31,14 @@ class BirthdayViewModel(application: Application) : AndroidViewModel(application
             repository.add(
                 Birthday(name = name.trim(), day = day, month = month, year = year)
             )
-            WidgetUpdater.updateAll(getApplication())
+            WidgetUpdater.requestUpdate(getApplication())
         }
     }
 
     fun deleteBirthday(birthday: Birthday) {
         viewModelScope.launch {
             repository.delete(birthday)
-            WidgetUpdater.updateAll(getApplication())
+            WidgetUpdater.requestUpdate(getApplication())
         }
     }
 }
