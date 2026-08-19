@@ -53,6 +53,9 @@ class BirthdayWidget : GlanceAppWidget() {
             prefs.applyNext(computeNext(context))
         }
 
+        // Garante que a atualização diária à meia-noite está agendada.
+        WidgetRefreshWorker.schedule(context)
+
         provideContent {
             GlanceTheme {
                 WidgetContent()
